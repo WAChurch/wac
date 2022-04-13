@@ -11,6 +11,9 @@
     "start": "node server.js"
   },
   "postinstall": "ionic-app-scripts build",
+  "engines": {
+    "node": "16.14.0"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~13.0.0",
