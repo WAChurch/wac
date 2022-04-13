@@ -1,0 +1,54 @@
+<ion-content>
+    <ion-refresher (ionRefresh)="refresh($event)" disabled={{wait}} slot="fixed">
+        <ion-refresher-content pullingIcon="chevron-down-outline"></ion-refresher-content>
+    </ion-refresher>
+    <ion-toolbar *ngIf="items.length === 0" mode="ios" color="light">
+        <ion-title>Sin resultados</ion-title>
+    </ion-toolbar>
+    <ion-list lines="none">
+        <ion-item-group *ngFor="let i of items">
+            <ion-item disabled={{wait}}>
+                <ion-avatar *ngIf="!i.icon" slot="start">
+                    <img (click)="image(i)" alt="{{i.image}}" src="{{getImage(i.image)}}" />
+                </ion-avatar>
+                <ion-icon *ngIf="i.icon" color="primary" (click)="i.detail()" name="{{i.icon}}" slot="start"></ion-icon>
+                <ion-label (click)="i.detail()">
+                    {{i.label}}
+                    <small *ngIf="i.small"> | {{i.small}}</small>
+                    <p>
+                        <ion-text class="ion-text-wrap" color="{{i.subcolor}}"> {{i.sub}} </ion-text>
+                    </p>
+                </ion-label>
+                <ion-buttons *ngIf="i.buttons && properties.activeButtons" slot="end" style="margin-inline-start: 0px">
+                    <ion-badge *ngIf="i.notification && selected !== i.entity.id" class="badge-notification">
+                        {{i.notification.notifications.length}}
+                    </ion-badge>
+                    <ion-button *ngIf="i.buttons.length > 1 || (i.buttons.length === 1 && i.notification)"
+                        (click)="selected = selected === i.entity.id ? 0 : i.entity.id" disabled={{wait}}>
+                        <ion-icon name="{{selected === i.entity.id ? 'chevron-up-outline' : 'chevron-down-outline'}}"
+                            color="primary" slot="icon-only">
+                        </ion-icon>
+                    </ion-button>
+                    <ion-button *ngIf="i.buttons.length === 1 && !i.notification" (click)="i.buttons[0].click(i.entity)"
+                        disabled={{wait}}>
+                        <ion-icon name="{{i.buttons[0].icon}}" color="{{i.buttons[0].color}}" slot="icon-only">
+                        </ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+            <ion-item *ngIf="selected === i.entity.id" lines="none">
+                <ion-buttons slot="end">
+                    <ion-button *ngFor="let b of i.buttons" (click)="b.click(i.entity)" color="{{b.color}}"
+                        disabled={{wait}}>
+                        <ion-icon name="{{b.icon}}" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <ion-button *ngIf="i.notification" (click)="notifications(i)" disabled={{wait}}>
+                        <ion-badge *ngIf="i.notification" class="badge-notification">
+                            {{i.notification.notifications.length}} </ion-badge>
+                        <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+</ion-content>

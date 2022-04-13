@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border" no-border>
+    <app-header-component [properties]="headerProperties"></app-header-component>
+</ion-header>
+<ion-content>
+    <ion-list lines="none">
+        <ion-toolbar *ngIf="getReadonly() && contacts.length === 0" mode="ios" color="light">
+            <ion-title>Sin resultados</ion-title>
+        </ion-toolbar>
+        <ion-item *ngFor="let c of contacts" disabled={{wait}}>
+            <ion-icon (click)="editMedia(c)" color="primary" name="{{iconMedia(c)}}" slot="start"></ion-icon>
+            <ion-label position="stacked">{{labelMedia(c)}}</ion-label>
+            <ion-input (ionChange)="editValue($event, c)" readonly={{getReadonly()}} value="{{c.contact.value}}">
+            </ion-input>
+            <ion-icon *ngIf="!c.edited && getReadonly() && c.contact.media !== 'ADDRESS'" (click)="go(c)"
+                color="primary" name="chevron-forward-outline" slot="end"></ion-icon>
+            <ion-icon *ngIf="c.edited && !getReadonly()" (click)="saveContact(c)" name="checkmark-outline"
+                color="success" slot="end"> </ion-icon>
+            <ion-icon *ngIf="!c.edited && !getReadonly()" (click)="deleteContact(c)" name="trash-outline" color="danger"
+                slot="end">
+            </ion-icon>
+        </ion-item>
+        <ion-item *ngIf="!getReadonly() && contacts.length !== limitMedia()" (click)="newContact()" disabled={{wait}}>
+            <ion-icon color="success" name="add-outline"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>

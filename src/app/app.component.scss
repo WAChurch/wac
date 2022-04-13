@@ -1,0 +1,12 @@
+::ng-deep .danger {
+    color: var(--ion-color-danger) !important;
+}
+::ng-deep .success {
+    color: var(--ion-color-success) !important;
+}
+::ng-deep .danger .action-sheet-icon {
+    color: var(--ion-color-danger) !important;
+}
+::ng-deep .success .action-sheet-icon {
+    color: var(--ion-color-success) !important;
+}

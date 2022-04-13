@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border" no-border>
+    <app-header-component [properties]="headerProperties"></app-header-component>
+</ion-header>
+<super-tabs>
+    <super-tabs-toolbar color="light" slot="bottom">
+        <super-tab-button>
+            <ion-icon name="people-outline"></ion-icon>
+        </super-tab-button>
+        <super-tab-button>
+            <ion-icon name="people-circle-outline"></ion-icon>
+        </super-tab-button>
+        <super-tab-button>
+            <ion-icon name="people"></ion-icon>
+        </super-tab-button>
+    </super-tabs-toolbar>
+    <super-tabs-container>
+        <super-tab>
+            <app-list-component [properties]="personListProperties"></app-list-component>
+        </super-tab>
+        <super-tab>
+            <ion-toolbar mode="ios">
+                <ion-title>¡Pronto!</ion-title>
+            </ion-toolbar>
+        </super-tab>
+        <super-tab>
+            <ion-toolbar mode="ios">
+                <ion-title>¡Pronto!</ion-title>
+            </ion-toolbar>
+        </super-tab>
+    </super-tabs-container>
+</super-tabs>

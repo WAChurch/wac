@@ -1,0 +1,38 @@
+<ion-progress-bar *ngIf="wait" slot="fixed" type="indeterminate"></ion-progress-bar>
+<ion-header class="ion-no-border">
+    <ion-toolbar mode="ios" color="light">
+        <ion-buttons slot="start">
+            <ion-button *ngIf="properties.dismiss" (click)="back()" disabled={{wait}}>
+                <ion-icon name="chevron-back-outline" color="primary" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-menu-button *ngIf="!properties.dismiss" color="primary" disabled={{wait}}></ion-menu-button>
+        </ion-buttons>
+        <ion-title style="padding: 0%;">
+            <ion-text>
+                {{properties.title}}
+                <small> {{properties.subtitle}} </small>
+            </ion-text>
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button *ngFor="let b of buttons" (click)="b.click()" color="{{b.color}}" disabled={{wait}}
+                style="margin: 0px;">
+                <ion-icon color="primary" name="{{b.icon + (b.selected?'-circle':'') + '-outline'}}"></ion-icon>
+            </ion-button>
+            <ion-button *ngFor="let b of properties.buttons" (click)="b.click()" color="{{b.color}}" disabled={{wait}}>
+                <ion-icon name="{{b.icon}}"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="toolbar === 'SEARCH'" color="light">
+        <ion-searchbar (ionChange)="search()" [(ngModel)]="searchFilter" animated disabled={{wait}} mode="ios">
+        </ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="toolbar === 'FILTER' && !wait" style="text-align: center;" color="light">
+        <ng-container *ngFor="let f of filters">
+            <ion-chip *ngIf="!isSearch(f.type)" color="primary" outline>
+                <ion-label (click)="toFilter($event, f.type)">{{f.value||f.type}}</ion-label>
+                <ion-icon *ngIf="f.value" color="primary" (click)="clear(f.type)" name="close"></ion-icon>
+            </ion-chip>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>

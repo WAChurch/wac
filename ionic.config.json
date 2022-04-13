@@ -1,0 +1,9 @@
+{
+  "name": "Somos",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "6b300c93"
+}

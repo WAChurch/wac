@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border" no-border>
+    <app-header-component [properties]="headerProperties"></app-header-component>
+</ion-header>
+<ion-content>
+    <form [formGroup]="group">
+        <ion-list lines="none">
+            <ion-item disabled={{wait}}>
+                <ion-avatar (click)="detailPerson()" slot="start">
+                    <img src="{{getImage()}}" alt="foto" />
+                </ion-avatar>
+                <ion-label (click)="detailPerson()">
+                    {{getPersonLabel()}}
+                    <p *ngIf="properties.entity.person">
+                        <ion-text> {{properties.entity.person.identification}} </ion-text>
+                    </p>
+                </ion-label>
+                <ion-buttons *ngIf="!getReadonly() && !enabledObservation" slot="end" style="margin-inline-start: 0px">
+                    <ion-button (click)="changePerson()" disabled={{wait}}>
+                        <ion-icon name="swap-horizontal-outline" color="primary" slot="icon-only"> </ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+            <ion-item>
+                <ion-icon (click)="editObservation()" color="primary" name="{{iconObservation()}}" slot="start">
+                </ion-icon>
+                <ion-label position="stacked">{{labelObservation()}}</ion-label>
+                <ion-textarea formControlName="detail" rows="5" spellcheck readonly={{getReadonly()}}>
+                </ion-textarea>
+            </ion-item>
+            <ion-item disabled={{wait}}>
+                <ion-label position="stacked">Fecha</ion-label>
+                <ion-datetime cancelText="" displayFormat="MMM D, YYYY" doneText="OK" formControlName="date" mode="md"
+                    max="{{maxDate()}}" presentation="date" readonly={{getReadonly()}}>
+                </ion-datetime>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

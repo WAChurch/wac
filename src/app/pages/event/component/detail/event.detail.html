@@ -1,0 +1,52 @@
+<ion-header class="ion-no-border" no-border>
+    <app-header-component [properties]="headerProperties"></app-header-component>
+</ion-header>
+<super-tabs (tabChange)="changePage($event)">
+    <super-tabs-toolbar color="light">
+        <super-tab-button>
+            <ion-icon name="information-outline"></ion-icon>
+        </super-tab-button>
+        <super-tab-button>
+            <ion-icon name="people-outline"></ion-icon>
+        </super-tab-button>
+    </super-tabs-toolbar>
+    <super-tabs-container>
+        <super-tab>
+            <form [formGroup]="group">
+                <ion-list lines="none">
+                    <ion-item-divider mode="md">
+                        <ion-label> Datos del evento </ion-label>
+                    </ion-item-divider>
+                    <ion-item disabled={{wait}}>
+                        <ion-label position="floating">Nombre</ion-label>
+                        <ion-input formControlName="name" readonly={{getReadonly()}}></ion-input>
+                    </ion-item>
+                    <ion-item disabled={{wait}}>
+                        <ion-label position="stacked">Fecha</ion-label>
+                        <ion-datetime cancelText="" displayFormat="MMM D, YYYY" doneText="OK" formControlName="date"
+                            mode="md" max="{{maxDate()}}" min="{{minDate()}}" presentation="date"
+                            readonly={{getReadonly()}}>
+                        </ion-datetime>
+                    </ion-item>
+                    <ion-item disabled={{wait}}>
+                        <ion-label position="stacked">Hora</ion-label>
+                        <ion-datetime cancelText="" displayFormat="hh:mm a" doneText="OK" formControlName="time"
+                            mode="md" readonly={{getReadonly()}} presentation="time" minuteValues="{{minuteValues()}}">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-list>
+            </form>
+        </super-tab>
+        <super-tab>
+            <ion-item-divider mode="md">
+                <ion-label>Asistentes <small>{{assistanceCount}}</small></ion-label>
+                <ion-buttons *ngIf="!getReadonly()" slot="end">
+                    <ion-button (click)="newAssistance()" disabled={{wait}}>
+                        <ion-icon color="success" name="add-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item-divider>
+            <app-list-component [properties]="assistanceListProperties" #ALP></app-list-component>
+        </super-tab>
+    </super-tabs-container>
+</super-tabs>
