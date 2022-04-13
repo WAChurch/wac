@@ -4,12 +4,15 @@
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "ng": "ng",
-    "start": "node app.js",
-    "build": "ionic build && ionic cordova run browser",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve",
+    "start": "node server.js"
+  },
+  "postinstall": "ionic-app-scripts build",
+  "engines": {
+    "node": "16.14.0"
   },
   "private": true,
   "dependencies": {
@@ -44,6 +47,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@ionic/app-scripts": "^1.0.0",
     "@angular-devkit/build-angular": "~13.0.1",
     "@angular-eslint/builder": "~13.0.1",
     "@angular-eslint/eslint-plugin": "~13.0.1",
